@@ -2,7 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Programación Lógica - Tarea       %
 %                                       %
-%   Carlos Aponte     	09-10041    %
+%   Carlos Aponte   	  	09-10041    %
 %   Donato Rolo             10-10640    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -11,7 +11,7 @@
 
 % 3.- Laberintos Rectangulares
 
-%% Regla que lee de un laverinto del archivo de texto indicado.
+%% Predicado que lee de un laverinto del archivo de texto indicado.
 leer(L,M,N):- 
 	write('Por favor, introduzca el nombre del archivo a leer:  '),
  	    read(Archivo),
@@ -26,7 +26,7 @@ leer(L,M,N):-
         close(Stream).
 
 
-%% Regla que resuelve el laberinto dando como resultado TODOS los caminos a
+%% Predicado que resuelve el laberinto dando como resultado TODOS los caminos a
 %% cada salida.
 resolver(Abiertos,M,N, Camino):-
 	salida(Xs,Ys,N,Abiertos),
@@ -34,7 +34,7 @@ resolver(Abiertos,M,N, Camino):-
 	\+ length(Camino,0).
 
 
-%% Regla que escribe por salida standard un laberinto y su solucion.
+%% Predicado que escribe por salida standard un laberinto y su solucion.
 escribir(Solucion,Original,M,N):-
 	write('\n'),
 	procesar_escritura(0,0,Solucion,Original,M,N), !.
@@ -42,47 +42,47 @@ escribir(Solucion,Original,M,N):-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  EXTRAS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Regla que resuelve el laberinto dando como resultado solamente el mejor 
+%% Predicado que resuelve el laberinto dando como resultado solamente el mejor 
 %% camino a cada salida.
 resolver_optimo(Abiertos,M,N, Camino):-
 	salida(Xs,Ys,N,Abiertos),
 	bfs(0,0, Xs,Ys, M,N, Abiertos, Camino),
 	\+ length(Camino,0).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AUXILIARES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PREDICADOS AUXILIARES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Reglas que dan las cordenadas luego de moverse en determinada direccion
+%% Predicados que dan las cordenadas luego de moverse en determinada direccion
 %% desde el punto de inicio.
 arriba(X,Y,X,Y2):- Y2 is Y-1.
 abajo(X,Y,X,Y2):- Y2 is Y+1.
 derecha(X,Y,X2,Y):- X2 is X+1.
 izquierda(X,Y,X2,Y):- X2 is X-1.
 
-%% Regla que determina si un punto esta dentro del laberinto.
+%% Predicado que determina si un punto esta dentro del laberinto.
 valido(X,Y,M,N):-
 	 X >= 0,
 	 X < M, 
 	 Y>=0, 
 	 Y < N.
 
-%% Regla que determina todos los movimientos desde un punto de inicio.
+%% Predicado que determina todos los movimientos desde un punto de inicio.
 moverse(X,Y,X2,Y2):- 
 	arriba(X,Y,X2,Y2); 
 	abajo(X,Y,X2,Y2);
 	derecha(X,Y,X2,Y2); 
 	izquierda(X,Y,X2,Y2).
 
-%% Regla que determina si un punto es vecino de otro
+%% Predicado que determina si un punto es vecino de otro
 vecino(X,Y,VX,VY,M,N,A):- 
 	member(punto(VX,VY),A), valido(VX,VY, M,N),
 	moverse(X,Y,VX,VY).
 
-%% Regla que determina si un punto es salida del laberinto.
+%% Predicado que determina si un punto es salida del laberinto.
 salida(X,Y,N,L):- 
 	(Y is N-1),
 	member(punto(X,Y),L).
 
-%% Regla que calcula un camino desde el (Xini,Yini) hasta un (Xfin,Yfin).
+%% Predicado que calcula un camino desde el (Xini,Yini) hasta un (Xfin,Yfin).
 camino(Xini,Yini,Xfin,Yfin,M,N,Abiertos,Camino):-
 	calcular(Xini, Yini, Xfin,Yfin,M,N,Camino,Abiertos,[]).
 	
@@ -101,7 +101,7 @@ calcular(Xini,Yini,Xfin,Yfin,M,N,Camino,Abiertos,Visitados) :-
    	calcular(Xi,Yi,Xfin,Yfin,M,N,Camino,Abiertos,[punto(Xini,Yini)|Visitados]). 
 
 
-%% Regla que calcula un camino optimo (mas corto) desde (Xini,Yini) hasta un 
+%% Predicado que calcula un camino optimo (mas corto) desde (Xini,Yini) hasta un 
 %% (Xfin,Yfin) usando el algoritmo de BFS.
 
 bfs(Xini,Yini,Xfin,Yfin,M,N,Abiertos,Camino) :- 
@@ -127,7 +127,7 @@ bfs_helper(Xini,Yini,Xfin,Yfin,M,N,Abiertos,Ruta,Candidatos,Visitados,Camino):-
     Candidatos2 = [(_,punto(Xy,Yy))|Zs],
     bfs_helper(Xy,Yy,Xfin,Yfin,M,N,Abiertos,Ruta2,Zs,Visitados2,Camino), !.
              
-%% Regla que arma el camino desde el inicio hasta el fin basado en la
+%% Predicado que arma el camino desde el inicio hasta el fin basado en la
 %% ejecucion del BFS.
 
 %% Caso en que estoy en el nodo inicial y por ende no hay antecesor.
@@ -140,7 +140,7 @@ armar_camino(Xini,Yini,Ruta,Camino,Temp):-
     armar_camino(XPadre,YPadre,Ruta,Camino,[punto(XPadre,YPadre)|Temp]).
 
 
-%% Regla que se encarga de interpretar los caracteres leidos del archivo.
+%% Predicado que se encarga de interpretar los caracteres leidos del archivo.
 
 %% Caso que procesa la lectura en el Fin del Archivo
 procesar_lectura(end_of_file,_,X,_,M,_,Abiertos,Temp):-
@@ -167,7 +167,7 @@ procesar_lectura('\n',Stream,X,_,M,N,Abiertos,Temp):-
     procesar_lectura(Caracter2,Stream,X2,0,M,N,Abiertos,Temp).
 
 
-%% Regla que se encarga de imprimir un laberinto dada una lista de espacios
+%% Predicado que se encarga de imprimir un laberinto dada una lista de espacios
 %% abiertos y un camino/solucion.
 
 %% Caso que se detiene al haber impreso todo el laberinto.
@@ -197,7 +197,7 @@ procesar_escritura(X,Y,Solucion,Original,M,N):-
 	siguiente(X,Y,XN,YN,M,N),
 	procesar_escritura(XN,YN,Solucion,Original,M,N).
 
-%% Regla que determina cual es el siguiente puntoa imprimir dentro del laberinto
+%% Predicado que determina cual es el siguiente puntoa imprimir dentro del laberinto
 %% asumiendo que este se recorre de izquierda a derecha y de arriba abajo.
 
 %% Caso en el que el siguiente pto no pertenece al laberinto.

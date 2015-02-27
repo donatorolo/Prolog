@@ -11,7 +11,6 @@
 
 % 1.- Estaciones
 
-
 %Caso que determina cuales son las mejores ciudades.
 estacion(X):- mejor(X).
 
