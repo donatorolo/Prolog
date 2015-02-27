@@ -1,6 +1,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Programacion Logica - Tarea       %
+%     Programación Lógica - Tarea       %
 %                                       %
 %   Carlos Aponte     		09-10041    %
 %   Donato Rolo             10-10640    %
