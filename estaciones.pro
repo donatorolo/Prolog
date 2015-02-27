@@ -17,7 +17,7 @@ camino(Inicio,Fin,Camino,Costo) :-
 		bfs(Inicio,Fin,Camino), 
 		length(Camino,Costo).
 
-
+%% Calcula el camino mas corto mediante el algoritmo de BFS.
 bfs(Inicio,Fin,Camino) :- bfs_helper(Inicio,Fin,[],[],[],Camino).
 
 bfs_helper(Inicio,Inicio,_,_,_,_):- !, fail.
@@ -35,7 +35,9 @@ bfs_helper(Inicio,Fin,Ruta,Candidatos,Visitados,Camino):-
         append(Visitados,[Inicio],Visitados2),
         Candidatos2 = [(_,Y)|Zs],
         bfs_helper(Y,Fin,Ruta2,Zs,Visitados2,Camino), !.
-                    
+       
+%% Funcion auxiliar que arma el camino desde inicio hasta el fin basado en la
+%% ruta recorrida por el bfs.             
 armar_camino(Inicio,Ruta,Temp,Temp):-
         \+ member((_,Inicio),Ruta).
 
@@ -52,6 +54,9 @@ buena(X,Costo):- pequena(X), grande(Y), grande(Z), Y \= Z,
 		E1 \= E2.
 
 %% Mejor: determina cual es la mejor entre todas las ciudades buenas. 
-mejor(X):- setof((Costo,Ciudad), buena(Ciudad,Costo), L), L =[(_,X)|_].
+mejor(X):- setof((Costo,Ciudad), buena(Ciudad,Costo), L), L =[(Min,_)|Ls],
+		todos_mejores(Min,L,X).
+
+todos_mejores(M,L,X):- member((M,X),L).
 
 estacion(X):- mejor(X).
