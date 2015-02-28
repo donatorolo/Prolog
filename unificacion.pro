@@ -2,7 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Programación Lógica - Tarea       %
 %                                       %
-%   Carlos Aponte     		09-10041    %
+%   Carlos Aponte           09-10041    %
 %   Donato Rolo             10-10640    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,11 +43,11 @@ unificacion(V,U) :-
 
 % Caso en donde U y V son functores
 unificacion(U,V):-
-	\+var(U),
-	\+var(V),
-	functor(U,Functor,Arity),
-	functor(V,Functor,Arity),
-	unificarArgumentos(U,V,1,Arity).
+    \+var(U),
+    \+var(V),
+    functor(U,Functor,Arity),
+    functor(V,Functor,Arity),
+    unificarArgumentos(U,V,1,Arity).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% Predicados Auxiliares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
