@@ -26,7 +26,7 @@ estrella(X) :-
 	checkYellow(X),
 	checkOrange(X).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AUXILIARES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AUXILIAR RULES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Regla que verifica si los elementos de la linea suman 34 (4 * N + 2)
 check(A,B,C,D) :-
@@ -114,7 +114,7 @@ generate([A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P]):-
 	check(I,K,N,P).	% Check Orange 2
 	
 
-% Este procedimiento genera los numeros del 1 hasta N
+% Este procedimiento genera los números del 1 hasta N y los guarda en una lista
 genNumeros(0,H) :- H = [].
 genNumeros(N,[H|T]) :-
 	N > 0,
