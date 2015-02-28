@@ -31,38 +31,38 @@ unificacion(U,V) :-
    ground(V),
    functor(U,Functor,Arity),
    functor(V,Functor,Arity),
-   matchargs(U,V,1,Arity).
+   unificarArgumentos(U,V,1,Arity).
 
 unificacion(V,U) :- 
    \+var(U), 
    ground(V),
    functor(U,Functor,Arity),
    functor(V,Functor,Arity),
-   matchargs(U,V,1,Arity).
+   unificarArgumentos(U,V,1,Arity).
 
 unificacion(U,V):-
 	\+var(U),
 	\+var(V),
 	functor(U,Functor,Arity),
 	functor(V,Functor,Arity),
-	matchargs(U,V,1,Arity).
+	unificarArgumentos(U,V,1,Arity).
 
 % Caso para unificar los parametros de los 'functores'
-matchargs(_,_,N,Arity) :- 
+unificarArgumentos(_,_,N,Arity) :- 
    N > Arity.
-matchargs(U,V,N,Arity) :- 
+unificarArgumentos(U,V,N,Arity) :- 
    N =< Arity,
    arg(N,U,ArgU),
    arg(N,V,ArgV), 
    unificacion(ArgU,ArgV),
    N1 is N+1, 
-   matchargs(U,V,N1,Arity).
-matchargs(V,U,N,Arity) :- 
+   unificarArgumentos(U,V,N1,Arity).
+unificarArgumentos(V,U,N,Arity) :- 
    N =< Arity,
    arg(N,U,ArgU),
    arg(N,V,ArgV), 
    unificacion(ArgU,ArgV),
    N1 is N+1, 
-   matchargs(U,V,N1,Arity).
+   unificarArgumentos(U,V,N1,Arity).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

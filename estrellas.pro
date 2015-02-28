@@ -28,38 +28,38 @@ estrella(X) :-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AUXILIAR RULES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Regla que verifica si los elementos de la linea suman 34 (4 * N + 2)
+% Predicado que verifica si los elementos de la linea suman 34 (4 * N + 2)
 check(A,B,C,D) :-
 	34 is A + B + C + D.
 
-% Regla que calcula si todos los valores de los vertices estan entre 1 y 16
+% Predicado que calcula si todos los valores de los vertices estan entre 1 y 16
 checkValues([]).
 checkValues([X|T]) :-
 	\+ member(X,T),
 	X >= 1, X =< 16,
 	checkValues(T).
 
-% Regla que chequea el lado izquierdo de ambos cuadrados
+% Predicado que chequea el lado izquierdo de ambos cuadrados
 checkGreen([A,B,C,_,_,F,_,H,_,J,_,L,_,_,_,_]):- 
 	check(H,F,C,A),
 	check(B,F,J,L).
 
-% Regla que chequea el lado superior de ambos cuadrados
+% Predicado que chequea el lado superior de ambos cuadrados
 checkBlue([A,B,C,D,E,_,G,_,I,_,_,_,_,_,_,_]):- 
 	check(B,C,D,E),
 	check(A,D,G,I).
 
-% Regla que chequea el lado inferior de ambos cuadrados
+% Predicado que chequea el lado inferior de ambos cuadrados
 checkYellow([_,_,_,_,_,_,_,H,_,J,_,L,M,N,O,P]):- 
 	check(H,J,M,P),
 	check(L,M,N,O).
 
-% Regla que chequea el lado derecho de ambos cuadrados
+% Predicado que chequea el lado derecho de ambos cuadrados
 checkOrange([_,_,_,_,E,_,G,_,I,_,K,_,_,N,O,P]):- 
 	check(E,G,K,O),
 	check(I,K,N,P).
 
-% Regla que genera las estrellas mágicas
+% Predicado que genera las estrellas mágicas
 generate([A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P]):-
 	
 	genNumeros(16,NN),
