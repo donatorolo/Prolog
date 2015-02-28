@@ -26,7 +26,7 @@ estrella(X) :-
 	checkYellow(X),
 	checkOrange(X).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AUXILIAR RULES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Predicados Auxiliares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Predicado que verifica si los elementos de la linea suman 34 (4 * N + 2)
 check(A,B,C,D) :-

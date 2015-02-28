@@ -11,28 +11,29 @@
 
 % 4.- Unificación
 
+% Caso donde U es variable y V tiene un valor unificado y viceversa
 unificacion(U,V) :- 
    var(U), 
    ground(V),
    U = V.
-
 unificacion(V,U) :- 
    var(U), 
    ground(V),
    U = V.
 
+% Caso en donde U y V están unificados
 unificacion(U,V) :- 
    ground(U), 
    ground(V),
    U == V.
 
+% Caso donde U es un functor y V tiene un valor unificado y viceversa
 unificacion(U,V) :- 
    \+var(U), 
    ground(V),
    functor(U,Functor,Arity),
    functor(V,Functor,Arity),
    unificarArgumentos(U,V,1,Arity).
-
 unificacion(V,U) :- 
    \+var(U), 
    ground(V),
@@ -40,12 +41,15 @@ unificacion(V,U) :-
    functor(V,Functor,Arity),
    unificarArgumentos(U,V,1,Arity).
 
+% Caso en donde U y V son functores
 unificacion(U,V):-
 	\+var(U),
 	\+var(V),
 	functor(U,Functor,Arity),
 	functor(V,Functor,Arity),
 	unificarArgumentos(U,V,1,Arity).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Predicados Auxiliares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Caso para unificar los parametros de los 'functores'
 unificarArgumentos(_,_,N,Arity) :- 
